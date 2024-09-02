@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: summercamp-app
+  namespace: sun
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: summercamp-app
+  template:
+    metadata:
+      labels:
+        app: summercamp-app
+    spec:
+      containers:
+      - name: summercamp-app
+        image: rajeshe12/summercamp:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: summercamp-config
+              key: MYSQL_HOST
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: summercamp-config
+              key: MYSQL_PORT
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-database
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-user-password

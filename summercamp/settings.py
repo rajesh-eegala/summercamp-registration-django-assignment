@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5kj5_)16g-^op_bcyh^ywytge@@s*h1^8uk2d+f#k5t@dw)hu!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'raghuck.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,23 +74,37 @@ WSGI_APPLICATION = 'summercamp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}'''
+
+import os
 
 '''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_database_name',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST'),
+        'PORT': os.getenv('MYSQL_PORT'),
+    }
+}'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django',
         'USER': 'root',
-        'PASSWORD': 'your_mysql_password',
+        'PASSWORD': 'rajeshcentos@123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
-}'''
+}
+
+
 
 
 # Password validation
