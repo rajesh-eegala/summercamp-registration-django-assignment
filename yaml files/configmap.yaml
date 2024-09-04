@@ -6,3 +6,5 @@ metadata:
 data:
   MYSQL_HOST: "mysql-service" # Example: '127.0.0.1' or your local IP
   MYSQL_PORT: "3306"                  # MySQL default port
+  init-database.sql: |
+    CREATE DATABASE IF NOT EXISTS summercamp;

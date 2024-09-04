@@ -27,6 +27,19 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: mysql-database
+        
+        
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: summercamp-config
+              key: MYSQL_HOST
+        - name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: summercamp-config
+              key: MYSQL_PORT
+        
         - name: MYSQL_USER
           valueFrom:
             secretKeyRef:
@@ -37,12 +50,16 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: mysql-user-password
+              
         ports:
         - containerPort: 3306
         volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql  # The default MySQL data directory
+        - name: mysql-initdb-volume
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
+      - name: mysql-initdb-volume
+        configMap:
+          name: summercamp-config
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
